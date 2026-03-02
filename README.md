@@ -1,20 +1,16 @@
-# VocabApp (iOS 17+)
+# Vocab PWA (scan QR → run on iPhone)
 
-Native SwiftUI app to remember English words using spaced repetition (Again / Hard / Good / Easy).
+This is a **web app / PWA** version of the vocab spaced-repetition app. It runs on iPhone in Safari immediately, works offline, and supports JSON import/export.
 
-## What’s included
-- SwiftUI screens: Home, Review, Browse/Search, Add/Edit, Settings
-- SwiftData persistence (`Word` model)
-- Simplified SM-2 style scheduling (`SRSService`)
-- Daily local notification reminder (optional)
-- JSON import/export for backup
+## 1) Host it (fastest: GitHub Pages)
+1. Create a GitHub account (if you don’t have one).
+2. Create a new repository, e.g. `vocab-pwa`.
+3. Upload these files from the `vocab-pwa/` folder:\n   - `index.html`\n   - `app.js`\n   - `styles.css`\n   - `sw.js`\n   - `manifest.webmanifest`\n   - `icon.svg`\n4. In GitHub repo settings → **Pages**:\n   - Source: **Deploy from a branch**\n   - Branch: `main` / root\n5. Wait ~1–2 minutes. Your URL will look like:\n   - `https://YOUR_USERNAME.github.io/vocab-pwa/`
 
-## Open in Xcode
-This repo contains the app source files (no `.xcodeproj` was generated here).
+## 2) Generate the QR code
+1. Open the hosted site on your PC.\n2. Click **QR** in the top bar.\n3. Scan the QR with your iPhone camera.\n
+## 3) Install like an app (optional)
+On iPhone: open the site in Safari → Share → **Add to Home Screen**.
 
-In Xcode on macOS:
-1. Create a new **iOS App** (SwiftUI) project named `VocabApp` targeting **iOS 17+**.
-2. Replace the generated `ContentView.swift`/`App` entry with the files in this folder (or drag `VocabApp/` into the project).
-3. Ensure **SwiftData** is enabled (iOS 17+).
-4. (Optional) Add `VocabAppTests/SRSTests.swift` to a test target named `VocabAppTests`.
-
+## Notes about reminders on iPhone
+Web apps can’t reliably schedule daily local notifications without a server. The simple alternative is an iOS Reminder to open the app daily.
