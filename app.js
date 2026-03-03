@@ -373,7 +373,7 @@ function renderEditor({ mode, id }) {
         <label>Word</label>
         <div class="row" style="gap: 8px; align-items: center; flex-wrap: wrap">
           <input id="term" placeholder="e.g. improve" style="flex: 1; min-width: 120px" />
-          <button type="button" class="btn" id="lookup">查询释义</button>
+          <button type="button" class="btn" id="lookup">Look up</button>
         </div>
 
         <label>Meaning (optional)</label>
@@ -400,19 +400,21 @@ function renderEditor({ mode, id }) {
   const $save = root.querySelector("#save");
   const $lookup = root.querySelector("#lookup");
 
+  const lookupBtnLabel = "Look up";
+  const lookupBtnLabelBusy = "Looking up…";
   $lookup.addEventListener("click", async () => {
     const term = $term.value.trim();
     if (!term) {
-      alert("请先输入单词");
+      alert("Please enter a word first.");
       return;
     }
     $lookup.disabled = true;
-    $lookup.textContent = "查询中…";
+    $lookup.textContent = lookupBtnLabelBusy;
     const result = await lookupWord(term);
     $lookup.disabled = false;
-    $lookup.textContent = "查询释义";
+    $lookup.textContent = lookupBtnLabel;
     if (result == null) {
-      alert("未找到该词的释义，请检查拼写或稍后重试");
+      alert("Definition not found. Check spelling or try again later.");
       return;
     }
     $def.value = result.definition;
