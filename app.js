@@ -54,6 +54,50 @@ function normalizedTerm(s) {
   return (s ?? "").toString().trim().toLowerCase();
 }
 
+const DICT_API_BASE = "https://api.dictionaryapi.dev/api/v2/entries/en";
+const DICT_TIMEOUT_MS = 8000;
+
+function parseDictionaryResponse(json) {
+  try {
+    if (!Array.isArray(json) || !json[0]?.meanings?.length) return null;
+    const firstMeaning = json[0].meanings[0];
+    const definitions = firstMeaning?.definitions;
+    if (!Array.isArray(definitions) || !definitions.length) return null;
+    const definition = (definitions[0].definition ?? "").trim();
+    let example = (definitions[0].example ?? "").trim();
+    if (!example) {
+      for (let i = 1; i < definitions.length; i++) {
+        const ex = (definitions[i].example ?? "").trim();
+        if (ex) {
+          example = ex;
+          break;
+        }
+      }
+    }
+    return { definition, example };
+  } catch {
+    return null;
+  }
+}
+
+async function lookupWord(word) {
+  const term = (word ?? "").toString().trim();
+  if (!term) return null;
+  const url = `${DICT_API_BASE}/${encodeURIComponent(term)}`;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), DICT_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (!res.ok) return null;
+    const json = await res.json();
+    return parseDictionaryResponse(json);
+  } catch {
+    clearTimeout(timeoutId);
+    return null;
+  }
+}
+
 const SRS = {
   minEase: 1.3,
   maxEase: 3.0,
@@ -327,7 +371,10 @@ function renderEditor({ mode, id }) {
 
       <div style="margin-top: 12px">
         <label>Word</label>
-        <input id="term" placeholder="e.g. improve" />
+        <div class="row" style="gap: 8px; align-items: center; flex-wrap: wrap">
+          <input id="term" placeholder="e.g. improve" style="flex: 1; min-width: 120px" />
+          <button type="button" class="btn" id="lookup">Look up</button>
+        </div>
 
         <label>Meaning (optional)</label>
         <textarea id="def" placeholder="Write a short meaning in your own words"></textarea>
@@ -351,6 +398,28 @@ function renderEditor({ mode, id }) {
   const $ex = root.querySelector("#ex");
   const $tags = root.querySelector("#tags");
   const $save = root.querySelector("#save");
+  const $lookup = root.querySelector("#lookup");
+
+  const lookupBtnLabel = "Look up";
+  const lookupBtnLabelBusy = "Looking up…";
+  $lookup.addEventListener("click", async () => {
+    const term = $term.value.trim();
+    if (!term) {
+      alert("Please enter a word first.");
+      return;
+    }
+    $lookup.disabled = true;
+    $lookup.textContent = lookupBtnLabelBusy;
+    const result = await lookupWord(term);
+    $lookup.disabled = false;
+    $lookup.textContent = lookupBtnLabel;
+    if (result == null) {
+      alert("Definition not found. Check spelling or try again later.");
+      return;
+    }
+    $def.value = result.definition;
+    $ex.value = result.example;
+  });
 
   if (existing) {
     $term.value = existing.term ?? "";
