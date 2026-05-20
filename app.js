@@ -574,7 +574,7 @@ function renderReview() {
 
     if (state.queue.length === 0) {
       $stage.appendChild(el(`
-        <div class="card" style="margin-top:12px; background: rgba(255,255,255,.03)">
+        <div class="card" style="margin-top:12px; background: var(--surface-subtle)">
           <div class="row">
             <div>
               <h2 class="h2">${dueWords.length ? "Session complete" : "Nothing due right now"}</h2>
@@ -591,7 +591,7 @@ function renderReview() {
     if (!w) return;
 
     const card = el(`
-      <div class="card reviewCard" style="margin-top:12px; background: rgba(255,255,255,.03)">
+      <div class="card reviewCard" style="margin-top:12px; background: var(--surface-subtle)">
         <div class="reviewTerm"></div>
         <div id="body"></div>
       </div>
@@ -652,14 +652,14 @@ function renderSettings() {
       </div>
 
       <div style="margin-top:12px" class="twoCol">
-        <div class="card" style="background: rgba(255,255,255,.03); box-shadow:none">
+        <div class="card" style="background: var(--surface-subtle); box-shadow:none">
           <h2 class="h2">Backup (export)</h2>
           <p class="p">Download a JSON backup file.</p>
           <div class="row" style="margin-top:12px">
             <button class="btn btnPrimary" id="export">Export JSON</button>
           </div>
         </div>
-        <div class="card" style="background: rgba(255,255,255,.03); box-shadow:none">
+        <div class="card" style="background: var(--surface-subtle); box-shadow:none">
           <h2 class="h2">Restore (import)</h2>
           <p class="p">Import a JSON backup. It merges by word spelling.</p>
           <div class="row" style="margin-top:12px">
@@ -668,7 +668,15 @@ function renderSettings() {
         </div>
       </div>
 
-      <div class="card" style="margin-top:12px; background: rgba(255,255,255,.03); box-shadow:none">
+      <div class="card" style="margin-top:12px; background: var(--surface-subtle); box-shadow:none">
+        <h2 class="h2">Clear library</h2>
+        <p class="p">Permanently remove every word on this device. Export a backup first if you might need it later.</p>
+        <div class="row" style="margin-top:12px">
+          <button class="btn btnDanger" id="deleteAll" type="button">Delete All Words</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px; background: var(--surface-subtle); box-shadow:none">
         <h2 class="h2">About reminders</h2>
         <p class="p">On iPhone, websites cannot schedule reliable daily local notifications without a server. The simplest approach is to add this app to your Home Screen and set an iOS Reminder to open it daily.</p>
       </div>
@@ -727,6 +735,18 @@ function renderSettings() {
     } finally {
       e.target.value = "";
     }
+  });
+
+  root.querySelector("#deleteAll").addEventListener("click", () => {
+    const words = Storage.read();
+    if (!words.length) {
+      alert("No words to delete.");
+      return;
+    }
+    if (!confirm(`Delete all ${words.length} words? This cannot be undone.`)) return;
+    Storage.write([]);
+    alert("All words deleted.");
+    location.hash = "#browse";
   });
 
   $app.appendChild(root);
