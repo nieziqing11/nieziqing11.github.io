@@ -3,8 +3,8 @@
   "short_name": "Vocab",
   "start_url": "./index.html#home",
   "display": "standalone",
-  "background_color": "#0b1220",
-  "theme_color": "#0b1220",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "description": "Remember English words with spaced repetition.",
   "icons": [
     {
