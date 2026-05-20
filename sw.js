@@ -1,9 +1,10 @@
-const CACHE_NAME = "vocab-pwa-v1";
+const CACHE_NAME = "vocab-pwa-v2";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./splash.js",
   "./manifest.webmanifest",
   "./icon.svg"
 ];
