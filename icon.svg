@@ -1,11 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Vocab">
   <defs>
-    <linearGradient id="g" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#7c5cff"/>
-      <stop offset="1" stop-color="#52a8ff"/>
+    <linearGradient id="bg" x1="96" y1="72" x2="416" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d9a876"/>
+      <stop offset="1" stop-color="#8b5a34"/>
+    </linearGradient>
+    <radialGradient id="face" cx="256" cy="268" r="168" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c99563"/>
+      <stop offset="1" stop-color="#9a6538"/>
+    </radialGradient>
+    <linearGradient id="eye" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c8d86a"/>
+      <stop offset="1" stop-color="#8fa84a"/>
     </linearGradient>
   </defs>
-  <rect x="56" y="56" width="400" height="400" rx="96" fill="url(#g)"/>
-  <path d="M166 174h70l52 164 52-164h70l-88 226h-68L166 174z" fill="#0b1220" opacity="0.95"/>
-</svg>
 
+  <rect x="56" y="56" width="400" height="400" rx="96" fill="url(#bg)"/>
+
+  <!-- ears -->
+  <path fill="#7a4f2c" d="M148 168 196 108 228 188Z"/>
+  <path fill="#7a4f2c" d="M364 168 316 108 284 188Z"/>
+  <path fill="#b88455" d="M162 170 198 126 214 182Z"/>
+  <path fill="#b88455" d="M350 170 314 126 298 182Z"/>
+
+  <!-- face -->
+  <ellipse cx="256" cy="278" rx="148" ry="132" fill="url(#face)"/>
+
+  <!-- forehead M marking -->
+  <path fill="none" stroke="#5c3818" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"
+    d="M206 198 232 228 256 206 280 228 306 198"/>
+
+  <!-- eye liner -->
+  <path fill="none" stroke="#3d2514" stroke-width="12" stroke-linecap="round"
+    d="M156 236 C176 206 214 196 244 214"/>
+  <path fill="none" stroke="#3d2514" stroke-width="12" stroke-linecap="round"
+    d="M356 236 C336 206 298 196 268 214"/>
+
+  <!-- eyes -->
+  <ellipse cx="196" cy="248" rx="52" ry="62" fill="url(#eye)"/>
+  <ellipse cx="316" cy="248" rx="52" ry="62" fill="url(#eye)"/>
+  <ellipse cx="196" cy="252" rx="10" ry="34" fill="#1a140f"/>
+  <ellipse cx="316" cy="252" rx="10" ry="34" fill="#1a140f"/>
+  <ellipse cx="188" cy="232" rx="10" ry="8" fill="#fff" opacity=".35"/>
+  <ellipse cx="308" cy="232" rx="10" ry="8" fill="#fff" opacity=".35"/>
+
+  <!-- muzzle -->
+  <ellipse cx="256" cy="332" rx="78" ry="58" fill="#f2e6d6"/>
+  <path fill="#c97d6d" d="M256 286 236 312 276 312Z"/>
+  <path fill="none" stroke="#8f5a45" stroke-width="6" stroke-linecap="round"
+    d="M256 312 v18 M236 326 q20 14 40 0 M276 326 q-20 14 -40 0"/>
+
+  <!-- whisker pads -->
+  <circle cx="214" cy="318" r="6" fill="#5c3818" opacity=".55"/>
+  <circle cx="298" cy="318" r="6" fill="#5c3818" opacity=".55"/>
+
+  <!-- whiskers -->
+  <path fill="none" stroke="#f5efe6" stroke-width="5" stroke-linecap="round" opacity=".9"
+    d="M204 310 118 292 M204 322 112 334 M204 334 120 372"/>
+  <path fill="none" stroke="#f5efe6" stroke-width="5" stroke-linecap="round" opacity=".9"
+    d="M308 310 394 292 M308 322 400 334 M308 334 392 372"/>
+  <path fill="none" stroke="#2a2018" stroke-width="3" stroke-linecap="round" opacity=".35"
+    d="M204 310 118 292 M308 310 394 292"/>
+</svg>
