@@ -3,16 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b1220" />
+    <meta name="theme-color" content="#ffffff" />
     <title>Vocab PWA</title>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body class="splash-active">
+    <div id="splash" class="splash" aria-hidden="true">
+      <div class="splashStage">
+        <p class="splashTagline">好好学习！</p>
+        <img id="splashIcon" class="splashIcon" src="./icon.svg" alt="" />
+      </div>
+    </div>
+
     <header class="topbar">
       <div class="brand">
-        <div class="logo" aria-hidden="true">V</div>
+        <div class="logo" aria-hidden="true">
+          <img class="logoImg" src="./icon.svg" alt="" />
+        </div>
         <div class="brandText">
           <div class="title">Vocab</div>
           <div class="subtitle">Spaced repetition</div>
@@ -33,6 +42,7 @@
       <a href="#add">Add</a>
     </footer>
 
+    <script src="./splash.js"></script>
     <script type="module" src="./app.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
@@ -43,4 +53,3 @@
     </script>
   </body>
 </html>
-
